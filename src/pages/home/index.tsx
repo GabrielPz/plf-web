@@ -8,15 +8,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useTranslation } from 'react-i18next';
 import { Card, MenuItem, Modal, Popover, Toolbar } from '@mui/material';
 import { LoggedUser, drawerItemInterface } from '../../types/types';
-import Login from '../login';
-import StyleIcon from '@mui/icons-material/Style';
-import CreateCard from '@/components/createCard';
-import MyCards from '@/components/myCards';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -26,11 +21,12 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
-import CreateLocalComponent from '@/components/createLocal';
 import { useUpdate } from '@/contexts/UpdateContext';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import MyLocals from '@/components/myLocals';
+import GroupsIcon from '@mui/icons-material/Groups';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 const drawerWidth = 240;
 
 import dynamic from "next/dynamic";
@@ -121,44 +117,36 @@ export default function MiniDrawer() {
     const [selectedComponent, setselectedComponent] = useState<drawerItemInterface>();
     const drawerItens: drawerItemInterface[] = [
     {
-        name: t('createCard'),
-        icon: AddCircleIcon,
-        component: CreateCard ,
-        key: '',
-        visible: true
-    },
-    {
-      name: 'Criar Locais',
-      icon: AddHomeWorkIcon,
-      component: MyCards,
-      key: 'createLocal',
-      visible: true
-      
-    },
-    {
-        name: t('myCards'),
-        icon: StyleIcon,
-        component: MyCards,
-        key: '',
-        visible: true
-
-    },
-    {
-        name: 'Meus Locais',
-        icon: ApartmentIcon,
+        name: 'Equipamentos',
+        icon: HomeRepairServiceIcon,
         component: MyLocals,
         key: '',
         visible: true
 
     },
     {
-        name: t('logout'),
-        icon: ExitToAppIcon,
-        component: Login,
-        key: 'logout',
+        name: 'Clientes',
+        icon: GroupsIcon,
+        component: MyLocals,
+        key: '',
         visible: true
 
-    }
+    },
+    {
+        name: 'Alugueis',
+        icon: CurrencyExchangeIcon,
+        component: MyLocals,
+        key: '',
+        visible: true
+
+    },
+    {
+      name: t('logout'),
+      icon: ExitToAppIcon,
+      component: MyLocals,
+      key: 'logout',
+      visible: true
+  }
   ]
 
     const handleDrawerOpen = () => {
@@ -205,7 +193,7 @@ export default function MiniDrawer() {
             <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-            Porang
+            LocaTudo
             </Typography>
         </Toolbar>
         </AppBar>
@@ -248,20 +236,12 @@ export default function MiniDrawer() {
             component="main"
             sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` },height:'94vh', marginTop: '6vh'}}
             >
-                <Modal
-                    open={openCreateLocalModal}
-                    onClose={handleCloseCreateModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                  <CreateLocalComponent onClose={handleCloseCreateModal}/>
-                </Modal>
                 {selectedComponent ? (
                     <>
                       <selectedComponent.component/>
                     </>
                 ) : (
-                  <CreateCard/>
+                  <MyLocals/>
                 )}
             </Box>
     </Box>

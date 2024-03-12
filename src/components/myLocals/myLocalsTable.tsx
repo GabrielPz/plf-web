@@ -26,8 +26,6 @@ import { Alert, Avatar, Button, Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 import { deleteLocals, getLocalsByClient } from "@/services/backendCalls";
 import RefreshIcon from '@mui/icons-material/Refresh';
-import CreateLocalComponent from "../createLocal";
-import UpdateLocalComponent from "../updateLocal";
 import { useUpdate } from "@/contexts/UpdateContext";
 
 const alertStyle = {
@@ -187,14 +185,6 @@ export default function CustomPaginationActionsTable() {
 
     return (
         <div style={{width: '80%', maxHeight: '90%'}}>
-            <Modal
-                open={openUpdateLocalModal}
-                onClose={handleCloseUpdateModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <UpdateLocalComponent onClose={handleCloseUpdateModal} id_local={selectedLocalId}/>
-            </Modal>
             {dataArray && (
             <TableContainer component={Paper}>
             <Table sx={{ minWidth: 600, }} aria-label="custom pagination table">
@@ -206,9 +196,11 @@ export default function CustomPaginationActionsTable() {
                     }}
                 >
                 <TableRow>
-                    <TableCell sx={{ fontSize: 29 }}>Local</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Latitude do Local</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Longitude do Local</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Nome</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>CPF</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Endereço</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Telefone</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Email</TableCell>
                     <TableCell>Atualizar</TableCell>
                     <TableCell>Deletar</TableCell>
                 </TableRow>

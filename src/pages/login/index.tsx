@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { set, useForm } from "react-hook-form";
 import { LoginFormData, loginFormShceme } from '../../types/types';
 import EmailIcon from '@mui/icons-material/Email';
-import logo from '../../assets/logo.png' 
+import logo from '../../assets/2.png' 
 import { useRouter } from 'next/router';
 import { handleEmailLogin } from '@/services/backendCalls';
 import RegisterComponent from './registerComponent';
@@ -78,7 +78,7 @@ export default function Login(){
                 </Alert>
             )}
             <form className={styles.formContainer} onSubmit={handleSubmit(handleLogin)}>
-                <img src={logo.src}/>
+                <img src={logo.src} height="300px"/>
                 <FormControl sx={{width: '50%' }} variant="outlined">
                 <InputLabel>Email</InputLabel>
                 <OutlinedInput
