@@ -67,24 +67,16 @@ export default function Login(){
             router.push('/home');
             return;
         }
-        setAlertMessage(result?.message);
+        setAlertMessage("Credênciais inválidas");
         handleShowAlert();
     }
     return(
         <div className={styles.body}>
             {showAlert && (
-                <Alert variant="filled" severity="error" onClose={() => {handleDismissAlert()}}>
+                <Alert variant="filled" severity="error" sx={{position: 'absolute', top: '20%'}} onClose={() => {handleDismissAlert()}}>
                     {alertMessage}
                 </Alert>
             )}
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <RegisterComponent/>
-            </Modal>
             <form className={styles.formContainer} onSubmit={handleSubmit(handleLogin)}>
                 <img src={logo.src}/>
                 <FormControl sx={{width: '50%' }} variant="outlined">
@@ -98,7 +90,6 @@ export default function Login(){
                     label="Email"
                     {...register('email')}
                     error={errors.email ? true : false}
-                    // {...register('senha')}
                 />
                 </FormControl>
                 <FormControl sx={{width: '50%' }} variant="outlined">
@@ -122,9 +113,6 @@ export default function Login(){
                     error={errors.password ? true : false}
                 />
                 </FormControl>
-                <Typography onClick={handleOpen} sx={{ color: '#F46A29', width: '10%', margin: '1rem 0 0 0', cursor: 'pointer', textDecoration: 'underline'}} align='center'>
-                    Registrar-se
-                </Typography>
                 <LoadingButton loading={loading} type='submit' sx={{backgroundColor: '#F46A29', color: '#fff', width: '10%', margin: '1rem 0 0 0', "&:hover": {backgroundColor: '#F46A29'} }}> Login </LoadingButton>
             </form>
         </div>

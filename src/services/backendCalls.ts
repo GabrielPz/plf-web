@@ -8,27 +8,7 @@ const loginApi = process.env.NEXT_PUBLIC_API_LOGIN
 const senhaApi = process.env.NEXT_PUBLIC_API_PASS
 
 export async function handleEmailLogin(data: LoginFormData){
-    try{
-        const authLoginResponse = await api.post('login',{
-            login: loginApi,
-            senha: senhaApi
-        })
-        if(authLoginResponse.data.token){
-            sessionStorage.setItem('token', authLoginResponse.data.token);
-        } else {
-            return {status: 500, message: 'Problema ao se conectar com a api'};
-        }
-        const response = await api.post('login_cards',{
-            userName: data.email,
-            password: data.password
-        })
-        sessionStorage.setItem('id_client', response.data.id_client);
-        if(response.status == 200){
-            return {status: 200, message: 'Login efetuado com sucesso'};
-        }
-    } catch(error: any){
-        return {status: 500, message: error.response.data.message};
-    }
+    return data.email == 'admin@locatudo.com' && data.password === '123456' ? {status: 200, message: 'Login efetuado com sucesso'} : {status: 500, message: "Erro ao realizar Login"};
 }
 
 export async function getAllCategories() {
