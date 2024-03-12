@@ -1,0 +1,77 @@
+.body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-image: url('../../assets/background.jpeg');
+    background-size: cover; */
+    /* Add a semi-transparent background color */
+    background-color: rgba(232, 232, 232, 0.5); 
+    /* Apply the blur effect */
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* changed to start alignment */
+    width: 100%;
+    /* gap: 2rem; */
+    overflow-y: auto; /* enable vertical scrolling */
+    background-color: rgb(255, 255, 255);  
+    /* background-image: url('../../assets/background.jpeg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;  */
+}
+
+.ibeaconCardModelData{
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    width: 50%;
+    height: 100%;
+    background-color: #F46A29;
+    color: white;
+}
+
+.ibeaconCardModelDataWhitoutPrice{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 50%;
+    height: 100%;
+    background-color: #F46A29;
+    color: white;
+    justify-content: center;
+}
+
+.ibeaconCardModelImg{
+    display: flex;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.ibeaconCardImg{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+.ibeaconCardModelEmpty{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.buttonsRow{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 35%;
+    height: 2rem;
+    /* background-color: red; */
+}

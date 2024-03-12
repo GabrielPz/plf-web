@@ -1,0 +1,21 @@
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 99svw;
+    height: 99svh;
+    /* background-image: url('../../assets/background.jpeg'); 
+    background-size: cover; */
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 50%;
+}
