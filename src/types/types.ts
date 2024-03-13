@@ -98,3 +98,14 @@ export interface rentsData {
     valor_total: number;
     status: number;
 }
+
+export interface parsedRentsData {
+    id: number;
+    equipamento: string;
+    cliente: string;
+    data_inicio: string;
+    data_termino: string;
+    valor_total: number;
+    status: string;
+}
+

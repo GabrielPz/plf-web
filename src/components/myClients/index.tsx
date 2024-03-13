@@ -26,7 +26,7 @@ const updateModalStyle = {
     p: 4,
   };
 
-export default function MyLocals() {
+export default function MyClients() {
     return (
         <div className={styles.mainContainer}>
             <CustomPaginationActionsTable/>

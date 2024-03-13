@@ -13,7 +13,7 @@ export async function handleEmailLogin(data: LoginFormData){
 
 export async function getAllClients() {
     try{
-        const response = await api.get(`app_hotel/ibeacon_locals`);
+        const response = await api.get(`/clientes`);
         const data: clientData[] = response.data;
         return { status: 200, data: data};
     } catch(err){
@@ -22,7 +22,7 @@ export async function getAllClients() {
 }
 export async function getAllEquipments() {
     try{
-        const response = await api.get(`app_hotel/ibeacon_locals`);
+        const response = await api.get(`/equipamentos`);
         const data: equipmentData[] = response.data;
         return { status: 200, data: data};
     } catch(err){
@@ -31,7 +31,7 @@ export async function getAllEquipments() {
 }
 export async function getAllRents() {
     try{
-        const response = await api.get(`app_hotel/ibeacon_locals`);
+        const response = await api.get(`/alugueis`);
         const data: rentsData[] = response.data;
         return { status: 200, data: data};
     } catch(err){

@@ -23,14 +23,14 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useUpdate } from '@/contexts/UpdateContext';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-import MyLocals from '@/components/myClients';
+import MyClients from '@/components/myClients';
+import MyRents from '@/components/myRents';
+import MyEquipments from '@/components/myEquipments';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 const drawerWidth = 240;
 
-import dynamic from "next/dynamic";
-const DynamicMap = dynamic(() => import('../../components/commons/mapComponent'))
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -119,7 +119,7 @@ export default function MiniDrawer() {
     {
         name: 'Equipamentos',
         icon: HomeRepairServiceIcon,
-        component: MyLocals,
+        component: MyEquipments,
         key: '',
         visible: true
 
@@ -127,7 +127,7 @@ export default function MiniDrawer() {
     {
         name: 'Clientes',
         icon: GroupsIcon,
-        component: MyLocals,
+        component: MyClients,
         key: '',
         visible: true
 
@@ -135,7 +135,7 @@ export default function MiniDrawer() {
     {
         name: 'Alugueis',
         icon: CurrencyExchangeIcon,
-        component: MyLocals,
+        component: MyRents,
         key: '',
         visible: true
 
@@ -143,7 +143,7 @@ export default function MiniDrawer() {
     {
       name: t('logout'),
       icon: ExitToAppIcon,
-      component: MyLocals,
+      component: MyClients,
       key: 'logout',
       visible: true
   }
@@ -241,7 +241,7 @@ export default function MiniDrawer() {
                       <selectedComponent.component/>
                     </>
                 ) : (
-                  <MyLocals/>
+                  <MyClients/>
                 )}
             </Box>
     </Box>

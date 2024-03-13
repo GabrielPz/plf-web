@@ -25,8 +25,8 @@ import { Alert, Avatar, Button, Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useUpdate } from "@/contexts/UpdateContext";
-import { getAllClients } from "@/services/backendCalls";
-import { clientData } from "@/types/types";
+import { getAllClients, getAllEquipments } from "@/services/backendCalls";
+import { clientData, equipmentData } from "@/types/types";
 
 const alertStyle = {
     position: 'absolute' as 'absolute',
@@ -115,19 +115,12 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 export default function CustomPaginationActionsTable() {
-    const [dataArray, setDataArray] = useState<clientData[]>([]);
-    const [requestApi, setRequestApi] = useState(false);
+    const [dataArray, setDataArray] = useState<equipmentData[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [page, setPage] = useState(0);
     const [refresh, setRefresh] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [newRender, setNewRender] = useState(false);
-    const [boxChecked, setBoxChecked] = useState<number | null>();
     const [inittialDataFetched, setInittialDataFetched] = useState(false);
-    const [selectedLocalId, setSelectedLocalId] = useState(999);
-    const [openUpdateLocalModal, setOpenUpdateLocalModal] = useState(false);
-    const handleOpenUpdateModal = () => setOpenUpdateLocalModal(true);
-    const handleCloseUpdateModal = () => {setOpenUpdateLocalModal(false); setRefresh(!refresh)};
     const { refreshState } = useUpdate();
     
     const router = useRouter;
@@ -137,7 +130,7 @@ export default function CustomPaginationActionsTable() {
 
     useEffect(() => {
         const fetchData = async () => {
-           const response = await getAllClients();
+           const response = await getAllEquipments();
            if(response.status == 500){
             alert('Erro ao realizar consulta dos clientes');
             return;
@@ -194,10 +187,11 @@ export default function CustomPaginationActionsTable() {
                 >
                 <TableRow>
                     <TableCell sx={{ fontSize: 29 }}>Nome</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>CPF</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Endereço</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Telefone</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Email</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Preço Aluguel</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Preço compra</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Disponibilidade</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Estoque</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Qntd de vezes alugado</TableCell>
                     <TableCell>Atualizar</TableCell>
                     <TableCell>Deletar</TableCell>
                 </TableRow>
@@ -212,38 +206,27 @@ export default function CustomPaginationActionsTable() {
                     ).map((row) => (
                         <TableRow key={row.id}>
                             <TableCell>
-                                {row.nome_cliente}
+                                {row.disponibilidade}
                             </TableCell>
                             <TableCell>
-                                {row.cpf}
+                                {row.preco_aluguel_dia}
                             </TableCell>
                             <TableCell>
-                                {row.endereco}
+                                {row.preco_compra}
                             </TableCell>
                             <TableCell>
-                                {row.telefone}
+                                {row.disponibilidade}
                             </TableCell>
                             <TableCell>
-                                {row.email}
+                                {row.vezes_alugado}
                             </TableCell>
                             <TableCell>
-                            <IconButton
-                                aria-label="update"
-                                onClick={() => {
-                                    setSelectedLocalId(row.id);
-                                    handleOpenUpdateModal();
-                                }}
-                                >
+                            <IconButton>
                                 <RefreshIcon color="primary" />
                             </IconButton>
                             </TableCell>
                             <TableCell>
-                                <IconButton
-                                    aria-label="delete"
-                                    onClick={() => {
-                                        setShowAlert(true);
-                                    }}
-                                    >
+                                <IconButton>
                                     <DeleteIcon color="error" />
                                 </IconButton>
                                 {showAlert && (
@@ -263,7 +246,7 @@ export default function CustomPaginationActionsTable() {
                                             e.preventDefault();
                                             handleDeleteLocals(row.id); // Call handleDeleteLocals function passing the ID
                                             setShowAlert(false);
-                                            setNewRender(true); // Close the alert after deletion
+                                            // setNewRender(true); // Close the alert after deletion
                                             }}
                                         >
                                             Deletar
@@ -280,7 +263,7 @@ export default function CustomPaginationActionsTable() {
                                         </div>
                                     }
                                     >
-                                    Tem certeza que deseja excluir este cliente?
+                                    Tem certeza que deseja excluir este equipamento?
                                     </Alert>
                                 )}
                             </TableCell>
