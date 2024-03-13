@@ -70,94 +70,31 @@ export interface drawerItemInterface {
     visible: boolean
 }
 
-export interface categories {
-    id_cat: number;
-    desc_cat: string;
-    name_cat: string;
+export interface clientData {
+    id: number;
+    nome_cliente: string;
+    cpf: string;
+    endereco: string;
+    telefone: string;
+    email: string;
 }
 
-export interface formDataInfo {
-    ibeacon_uuid: string;
-    id_client: number;
-    id_category: number;
-    id_local: number;
-    name_cupom: string;
-    desc_cupom: string;
-    brute_value: number;
-    discount_value: number;
-    value_with_discount: number;
-    expiration_data: string;
-    link_cupom: string;
-    lat_cupom: string;
-    lon_cupom: string;
-    has_price: number;
+export interface equipmentData {
+    id: number;
+    nome_equipamento: string;
+    preco_aluguel_dia: number;
+    preco_compra: number;
+    disponibilidade: boolean;
+    quantidade: number;
+    vezes_alugado: string;
 }
 
-export interface localData {
-    ibeacons_id_locals: number;
-    id_client: number;
-    ibeacon_local: string;
-    local_lat: number;
-    local_lng: number;
-}
-
-export interface CardsInfo {
-    id_cupom: number;
-    ibeacon_uuid: string;
-    id_client: number;
-    id_category: number;
-    id_local: number;
-    name_cupom: string;
-    desc_cupom: string;
-    brute_value: number;
-    discount_value: number;
-    value_with_discount: number;
-    img_url: string;
-    expiration_date: string;
-    blured_img_string: string;
-    link_cupom: string;
-    lat_cupom: string;
-    lon_cupom: string;
-    has_price: number;
-    local: string;
-    category: string;
-}
-
-export interface RegisterForm {
-    nome_fantasia: string; // Este campo pode ser o equivalente a "name" na sua interface original
-    razao_social: string; // Este campo pode ser o equivalente a "razao_s" na sua interface original, mas ajustado para capturar a razão social ao invés de um e-mail
-    cnpj: string; // Deve ter pelo menos 6 caracteres
-    name_users: string; // Este campo pode ser o equivalente a "username" na sua interface original
-    surname_users: string; // Este campo pode ser o equivalente a "surname_username" na sua interface original
-    cep: string; // Deve ter pelo menos 1 caractere
-    phone_pabx: string; // Deve ter pelo menos 1 caractere
-    phone_user: string; // Deve ter pelo menos 1 caractere
-    user_email: string; // Este campo pode ser o equivalente a "email" na sua interface original
-    pass_userdash: string; // Este campo pode ser o equivalente a "password" na sua interface original
-    sig_id: number; // Campo adicional conforme solicitado
-    location: string; //CIdade
-    street: string //Logradouro
-    district: string; //Bairro
-    state: string; //Estado
-}
-
-export interface Signatures {
-    sig_id: number;
-    desc_sig: string;
-    value_sig: string;
-    expire_date: string;
-}
-
-export interface CreateLocalFinalData {
-    id_client: number;
-    ibeacon_local: string;
-    local_lat: string;
-    local_lng: string;
-}
-
-export interface UpdateLocalData {
-    id_locals: number;
-    ibeacon_local: string;
-    local_lat: string;
-    local_lng: string;
+export interface rentsData {
+    id: number;
+    equipamento_id: number;
+    cliente_id: number;
+    data_inicio: string;
+    data_termino: string;
+    valor_total: number;
+    status: number;
 }

@@ -23,7 +23,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useUpdate } from '@/contexts/UpdateContext';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-import MyLocals from '@/components/myLocals';
+import MyLocals from '@/components/myClients';
 import GroupsIcon from '@mui/icons-material/Groups';
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';

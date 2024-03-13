@@ -1,6 +1,5 @@
 import styles from "./styles.module.css";
 import useRouter from "next/router";
-import { localData } from "@/types/types";
 import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,9 +23,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import api from "@/lib/axios";
 import { Alert, Avatar, Button, Modal } from "@mui/material";
 import { useState, useEffect } from "react";
-import { deleteLocals, getLocalsByClient } from "@/services/backendCalls";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useUpdate } from "@/contexts/UpdateContext";
+import { getAllClients, getAllEquipments } from "@/services/backendCalls";
+import { clientData, equipmentData } from "@/types/types";
 
 const alertStyle = {
     position: 'absolute' as 'absolute',
@@ -115,19 +115,12 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 export default function CustomPaginationActionsTable() {
-    const [dataArray, setDataArray] = useState<localData[]>([]);
-    const [requestApi, setRequestApi] = useState(false);
+    const [dataArray, setDataArray] = useState<equipmentData[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [page, setPage] = useState(0);
     const [refresh, setRefresh] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [newRender, setNewRender] = useState(false);
-    const [boxChecked, setBoxChecked] = useState<number | null>();
     const [inittialDataFetched, setInittialDataFetched] = useState(false);
-    const [selectedLocalId, setSelectedLocalId] = useState(999);
-    const [openUpdateLocalModal, setOpenUpdateLocalModal] = useState(false);
-    const handleOpenUpdateModal = () => setOpenUpdateLocalModal(true);
-    const handleCloseUpdateModal = () => {setOpenUpdateLocalModal(false); setRefresh(!refresh)};
     const { refreshState } = useUpdate();
     
     const router = useRouter;
@@ -137,14 +130,13 @@ export default function CustomPaginationActionsTable() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const id_client = sessionStorage.getItem('id_client') || '';
-            const response = await getLocalsByClient(id_client);
-            if (response.status == 200) {
-                setDataArray(response?.data);
-            }
-            if (response.status == 500) {
-                alert("Erro ao realizar consulta no banco de dados");
-            }
+           const response = await getAllEquipments();
+           if(response.status == 500){
+            alert('Erro ao realizar consulta dos clientes');
+            return;
+           }
+           setDataArray(response?.data);
+
         };
         fetchData();
         setInittialDataFetched(true);
@@ -169,7 +161,7 @@ export default function CustomPaginationActionsTable() {
 
 
     const handleDeleteLocals = async (id: number) => {
-        const response = await deleteLocals(id);
+        const response = {status: 500};
         if(response.status == 500){
             alert('Erro ao deletar local');
             setShowAlert(false);
@@ -178,8 +170,6 @@ export default function CustomPaginationActionsTable() {
         if(response.status == 200){
             alert('Local e Cards associados deletados com sucesso!');
             setShowAlert(false);
-            const updatedDataArray = dataArray.filter((local) => local.ibeacons_id_locals !== id);
-            setDataArray(updatedDataArray);
         }
     };
 
@@ -197,10 +187,11 @@ export default function CustomPaginationActionsTable() {
                 >
                 <TableRow>
                     <TableCell sx={{ fontSize: 29 }}>Nome</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>CPF</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Endereço</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Telefone</TableCell>
-                    <TableCell sx={{ fontSize: 29 }}>Email</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Preço Aluguel</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Preço compra</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Disponibilidade</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Estoque</TableCell>
+                    <TableCell sx={{ fontSize: 29 }}>Qntd de vezes alugado</TableCell>
                     <TableCell>Atualizar</TableCell>
                     <TableCell>Deletar</TableCell>
                 </TableRow>
@@ -213,34 +204,29 @@ export default function CustomPaginationActionsTable() {
                         )
                         : dataArray
                     ).map((row) => (
-                        <TableRow key={row.ibeacons_id_locals}>
+                        <TableRow key={row.id}>
                             <TableCell>
-                                {row.ibeacon_local}
+                                {row.disponibilidade}
                             </TableCell>
                             <TableCell>
-                                {row.local_lat}
+                                {row.preco_aluguel_dia}
                             </TableCell>
                             <TableCell>
-                                {row.local_lng}
+                                {row.preco_compra}
                             </TableCell>
                             <TableCell>
-                            <IconButton
-                                aria-label="update"
-                                onClick={() => {
-                                    setSelectedLocalId(row.ibeacons_id_locals);
-                                    handleOpenUpdateModal();
-                                }}
-                                >
+                                {row.disponibilidade}
+                            </TableCell>
+                            <TableCell>
+                                {row.vezes_alugado}
+                            </TableCell>
+                            <TableCell>
+                            <IconButton>
                                 <RefreshIcon color="primary" />
                             </IconButton>
                             </TableCell>
                             <TableCell>
-                                <IconButton
-                                    aria-label="delete"
-                                    onClick={() => {
-                                        setShowAlert(true);
-                                    }}
-                                    >
+                                <IconButton>
                                     <DeleteIcon color="error" />
                                 </IconButton>
                                 {showAlert && (
@@ -258,9 +244,9 @@ export default function CustomPaginationActionsTable() {
                                             size="small"
                                             onClick={(e: any) => {
                                             e.preventDefault();
-                                            handleDeleteLocals(row.ibeacons_id_locals); // Call handleDeleteLocals function passing the ID
+                                            handleDeleteLocals(row.id); // Call handleDeleteLocals function passing the ID
                                             setShowAlert(false);
-                                            setNewRender(true); // Close the alert after deletion
+                                            // setNewRender(true); // Close the alert after deletion
                                             }}
                                         >
                                             Deletar
@@ -277,7 +263,7 @@ export default function CustomPaginationActionsTable() {
                                         </div>
                                     }
                                     >
-                                    Ao deletar este local TODOS os CARDS associados a ele vão ser deletados, tem certeza que deseja deletar?
+                                    Tem certeza que deseja excluir este equipamento?
                                     </Alert>
                                 )}
                             </TableCell>
